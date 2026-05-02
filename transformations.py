@@ -15,9 +15,6 @@ Tum fonksiyonlar uzerine uygulandiklari Polygon'u degistirmez (immutable);
 yeni bir Polygon dondururler. Bu sayede donusumler zincirleme olarak
 gelistirilebilir.
 
-Bu modul odevin su gereksinimini karsilamaktadir:
-"Poligon uzerinde tanimli tum Afin donusumleri birer fonksiyonla
-gerceklesin."
 """
 
 from __future__ import annotations
@@ -37,9 +34,7 @@ Matrix3 = Tuple[
 ]
 
 
-# =====================================================================
-# Matris yardimcilari
-# =====================================================================
+
 
 def identity_matrix() -> Matrix3:
     """3x3 birim matrisi dondurur."""
@@ -95,10 +90,10 @@ def apply_to_point(m: Matrix3, p: Point) -> Point:
 
 
 def apply_to_polygon(m: Matrix3, polygon: Polygon) -> Polygon:
-    """Bir 3x3 matrisi bir poligonun tum kose noktalarina uygular.
+    """Bir 3x3 matrisi bir poligonun tum köşe noktalarina uygular.
 
     Uygulama her kose nokta icin bagimsiz oldugundan poligonun topolojisi
-    (komsuluklari, kapali olusu) bozulmaz.
+    (komsuluklari, kapali oluşu) bozulmaz.
     """
     return Polygon(tuple(apply_to_point(m, p) for p in polygon.vertices))
 
@@ -108,7 +103,7 @@ def apply_to_polygon(m: Matrix3, polygon: Polygon) -> Polygon:
 # =====================================================================
 
 def translation_matrix(tx: float, ty: float) -> Matrix3:
-    """Oteleme (translation) matrisi.
+    """Öteleme (translation) matrisi.
 
         T(tx, ty) = | 1 0 tx |
                     | 0 1 ty |
@@ -122,9 +117,9 @@ def translation_matrix(tx: float, ty: float) -> Matrix3:
 
 
 def scaling_matrix(sx: float, sy: Optional[float] = None) -> Matrix3:
-    """Olcekleme (scaling) matrisi.
+    """Ölçekleme (scaling) matrisi.
 
-    Tek olcek katsayisi verilirse her iki eksende esit olcekleme uygulanir.
+    Tek ölçek katsayisi verilirse her iki eksende eşit Ölçekleme uygulanır.
 
         S(sx, sy) = | sx 0  0 |
                     | 0  sy 0 |
@@ -140,7 +135,7 @@ def scaling_matrix(sx: float, sy: Optional[float] = None) -> Matrix3:
 
 
 def rotation_matrix(theta_radians: float) -> Matrix3:
-    """Orijin etrafinda saat yonunun tersine donme (rotation) matrisi.
+    """Orijin etrafinda saat yönünün tersine dönme (rotation) matrisi.
 
         R(theta) = | cos(theta)  -sin(theta)  0 |
                    | sin(theta)   cos(theta)  0 |
@@ -162,8 +157,8 @@ def shear_matrix(shx: float = 0.0, shy: float = 0.0) -> Matrix3:
                        | shy 1   0 |
                        | 0   0   1 |
 
-    shx > 0 -> x ekseni yonunde y'ye orantili kayma
-    shy > 0 -> y ekseni yonunde x'e orantili kayma
+    shx > 0 -> x ekseni yönünde y'ye orantılı kayma
+    shy > 0 -> y ekseni yönünde x'e orantılı kayma
     """
     return (
         (1.0, float(shx), 0.0),
@@ -173,7 +168,7 @@ def shear_matrix(shx: float = 0.0, shy: float = 0.0) -> Matrix3:
 
 
 def reflection_matrix_x_axis() -> Matrix3:
-    """x ekseni etrafinda yansima: (x, y) -> (x, -y)."""
+    """x ekseni etrafinda yansıma: (x, y) -> (x, -y)."""
     return (
         (1.0, 0.0, 0.0),
         (0.0, -1.0, 0.0),
@@ -193,7 +188,7 @@ def reflection_matrix_y_axis() -> Matrix3:
 def reflection_matrix_origin() -> Matrix3:
     """Orijine gore yansima: (x, y) -> (-x, -y).
 
-    Bu donusum 180 derecelik donme ile aynidir.
+    Bu donusum 180 derecelik dönme ile aynıdır.
     """
     return (
         (-1.0, 0.0, 0.0),
@@ -203,7 +198,7 @@ def reflection_matrix_origin() -> Matrix3:
 
 
 def reflection_matrix_line_y_eq_x() -> Matrix3:
-    """y = x dogrusuna gore yansima: (x, y) -> (y, x)."""
+    """y = x dogrusuna gore yansıma: (x, y) -> (y, x)."""
     return (
         (0.0, 1.0, 0.0),
         (1.0, 0.0, 0.0),
@@ -212,15 +207,15 @@ def reflection_matrix_line_y_eq_x() -> Matrix3:
 
 
 def reflection_matrix_line(a: float, b: float, c: float) -> Matrix3:
-    """ax + by + c = 0 dogrusuna gore genel yansima matrisi.
+    """ax + by + c = 0 dogrusuna gore genel yansıma matrisi.
 
-    Turetilis: dogrunun normaline gore yansima formulu
+  dogrunun normaline gore yansıma formulü
         x' = x - 2a(ax + by + c) / (a^2 + b^2)
         y' = y - 2b(ax + by + c) / (a^2 + b^2)
     """
     denom = a * a + b * b
     if denom == 0:
-        raise ValueError("a ve b ayni anda 0 olamaz; bu bir dogru tanimlamaz.")
+        raise ValueError("a ve b aynı anda 0 olamaz; bu bir dogru tanımlamaz.")
     m11 = (b * b - a * a) / denom
     m12 = -2 * a * b / denom
     m13 = -2 * a * c / denom
@@ -244,10 +239,7 @@ def general_affine_matrix(
             | c d ty |
             | 0 0 1  |
 
-    Tum afin donusumler bu formun ozel halidir; oteleme, olcekleme,
-    donme, kayma ve yansima bu matrisin parametreleriyle ifade edilebilir.
-    Determinant (ad - bc) sifirdan farkli olmalidir; aksi halde donusum
-    tekildir (bilgi kaybeder).
+    
     """
     return (
         (float(a), float(b), float(tx)),
@@ -257,7 +249,7 @@ def general_affine_matrix(
 
 
 # =====================================================================
-# Sabit nokta etrafinda donusumler
+# Sabit nokta etrafinda dönusumler
 # =====================================================================
 
 def about_point(matrix: Matrix3, pivot: Point) -> Matrix3:
