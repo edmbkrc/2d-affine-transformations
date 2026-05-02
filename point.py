@@ -4,9 +4,6 @@ point.py
 2 boyutlu duzlemde bir noktayi (x, y) gercel sayi cifti olarak modelleyen
 Point sinifi.
 
-Bu modul, odevin ilk gereksinimini karsilamaktadir:
-"Oncelikle 2 boyutlu duzlemde x, y gercel sayi cifti halinde bir noktayi
-(Point) modelleyin."
 """
 
 from __future__ import annotations
