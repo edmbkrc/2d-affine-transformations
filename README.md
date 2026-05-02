@@ -29,8 +29,6 @@ yoktur.
 ├── transformations.py    # Tüm afin dönüşüm fonksiyonları
 ├── main.py               # Demo: dönüşümleri uygular ve koordinatları yazar
 ├── tests.py              # Birim testleri (harici çerçeveye gerek yok)
-├── git_setup.ps1         # PowerShell ile yerel git deposu kurma betiği
-├── git_setup.bat         # Komut İstemi ile yerel git deposu kurma betiği
 ├── README.md             # Bu dosya
 └── .gitignore
 ```
@@ -47,29 +45,7 @@ python main.py
 python tests.py
 ```
 
-## GitHub deposu kurulumu
 
-Bu klasörde yerel bir git deposu açıp ilk commit'i atmak için, klasörle
-birlikte verilen yardımcı betiklerden birini çalıştırmanız yeterlidir:
-
-- **PowerShell:** `./git_setup.ps1`
-  (gerekirse `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`)
-- **Komut İstemi:** `git_setup.bat` (çift tıklayarak da çalıştırabilirsiniz)
-
-Betik şunları yapar: eski `.git` klasörü varsa temizler, `git init -b main`
-çağırır, kullanıcı adı/e-posta ayarlar, tüm dosyaları ekler ve ilk commit'i
-atar. Ardından GitHub'a push etmek için izlenecek adımları ekrana yazar.
-
-GitHub tarafında ise:
-1. https://github.com/new adresinden yeni bir boş depo oluşturun
-   (önerilen ad: `2d-affine-transformations`).
-2. README, `.gitignore` veya LICENSE eklemeyin (zaten yerel klasörde var).
-3. Aşağıdaki iki komutu çalıştırın:
-
-```bash
-git remote add origin https://github.com/<KULLANICI_ADI>/2d-affine-transformations.git
-git push -u origin main
-```
 
 ## Uygulanan afin dönüşümler
 
