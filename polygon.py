@@ -4,9 +4,6 @@ polygon.py
 2 boyutlu duzlemde N adet noktadan olusan kapali bir sekli (poligonu)
 modelleyen Polygon sinifi.
 
-Bu modul, odevin ikinci gereksinimini karsilamaktadir:
-"Geometrik eleman olarak sadece bir Poligon'u modelleyin... 2 boyutta
-N adet noktadan olusan kapali bir sekil olarak tanimliyoruz."
 """
 
 from __future__ import annotations
@@ -38,14 +35,14 @@ class Polygon:
                 f"verilen nokta sayisi: {len(self.vertices)}"
             )
 
-    # -- Yapilandirmalar --------------------------------------------------
+   
 
     @classmethod
     def from_pairs(cls, pairs: Iterable[Sequence[float]]) -> "Polygon":
         """[(x1, y1), (x2, y2), ...] sirasindan Polygon olusturur."""
         return cls(tuple(Point(float(p[0]), float(p[1])) for p in pairs))
 
-    # -- Yardimcilar ------------------------------------------------------
+ 
 
     @property
     def n(self) -> int:
@@ -73,7 +70,7 @@ class Polygon:
         """Kose noktalarini (x, y) demetleri listesine cevirir."""
         return [p.as_tuple() for p in self.vertices]
 
-    # -- Gosterim --------------------------------------------------------
+
 
     def __repr__(self) -> str:
         coords = ", ".join(str(p) for p in self.vertices)
